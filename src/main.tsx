@@ -10,6 +10,7 @@ import Protected from './components/Protected.tsx'
 import ErrorBoundary from './components/ErrorBoundary.tsx'
 import NewsletterPage from './components/newsletter/NewsletterPage.tsx'
 import Logout from './components/auth/Logout.tsx'
+import UtilisateurPage from './components/utilisateur/UtilisateurPage.tsx'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -21,7 +22,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
             <Route path="login" element={<Login />} />
             <Route path="/" element={<Protected />} >
               <Route path="/" index element="#" />
-              <Route path="/utilisateurs" element="#" />
+              <Route path="/utilisateurs" element={<ErrorBoundary><UtilisateurPage /></ErrorBoundary>} />
               <Route path="/challenges" element="#" />
               <Route path="/evenements" element="#" />
               <Route path="/quizzs" element="#" />
