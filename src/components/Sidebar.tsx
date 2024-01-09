@@ -9,7 +9,8 @@ import {
     FaShoppingBag,
     FaThList,
     FaInfo,
-    FaSignOutAlt
+    FaSignOutAlt,
+    FaQuestion
 } from "react-icons/fa";
 import { logoutUser } from '../services/AuthService';
 
@@ -51,6 +52,11 @@ const Sidebar: React.FC<SidebarProps> = ({ children }) => {
             path: "/newsletters",
             name: "Newsletters",
             icon: <FaThList />
+        },
+        {
+            path: "/questionSecuritys",
+            name: "Question Sécurité",
+            icon: <FaQuestion />
         },
         {
             path: "/about",

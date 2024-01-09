@@ -1,5 +1,6 @@
 import { addDoc, collection, deleteDoc, doc, getDocs, updateDoc } from "@firebase/firestore";
 import { firestore } from "../firebase";
+import Utilisateur from "../models/Utilisateur";
 
 class UtilisateurService {
     async getAllUtilisateurs() {
@@ -7,29 +8,30 @@ class UtilisateurService {
             const utilisateurs = await getDocs(collection(firestore, 'utilisateurs'));
             return utilisateurs.docs.map((doc) => ({
                 id: doc.id,
-              ...doc.data(),
-            }));
+                ...doc.data(),
+            })) as Utilisateur[];
         } catch (error) {
             console.error("Error loading users:", error);
+            throw error;
         }
     }
     
-    async createUtilisateur(name: string, securityQuestion?: string, securityAnswer?: string, phoneId?: string) {
+    async createUtilisateur(utilisateur: Utilisateur) {
         try {
             const utilisateurData: any = {
-                name,
+                name: utilisateur.name,
             };
     
-            if (securityQuestion !== undefined) {
-                utilisateurData.securityQuestion = securityQuestion;
+            if (utilisateur.securityQuestion !== undefined) {
+                utilisateurData.securityQuestion = utilisateur.securityQuestion;
             }
     
-            if (securityAnswer !== undefined) {
-                utilisateurData.securityAnswer = securityAnswer;
+            if (utilisateur.securityAnswer !== undefined) {
+                utilisateurData.securityAnswer = utilisateur.securityAnswer;
             }
     
-            if (phoneId !== undefined) {
-                utilisateurData.phoneId = phoneId;
+            if (utilisateur.phoneId !== undefined) {
+                utilisateurData.phoneId = utilisateur.phoneId;
             }
     
             const utilisateurRef = await addDoc(collection(firestore, 'utilisateurs'), utilisateurData);
@@ -41,27 +43,27 @@ class UtilisateurService {
         }
     }
     
-    async updateUtilisateur(id: string, name: string, securityQuestion?: string, securityAnswer?: string, phoneId?: string) {
+    async updateUtilisateur(utilisateur: Utilisateur) {
         try {
-            const utilisateurRef = doc(firestore, 'utilisateurs', id);
+            const utilisateurRef = doc(firestore, 'utilisateurs', utilisateur.id || '');
             const utilisateurData: any = {
-                name,
+                name: utilisateur.name,
             };
     
-            if (securityQuestion !== undefined) {
-                utilisateurData.securityQuestion = securityQuestion;
+            if (utilisateur.securityQuestion !== undefined) {
+                utilisateurData.securityQuestion = utilisateur.securityQuestion;
             }
     
-            if (securityAnswer !== undefined) {
-                utilisateurData.securityAnswer = securityAnswer;
+            if (utilisateur.securityAnswer !== undefined) {
+                utilisateurData.securityAnswer = utilisateur.securityAnswer;
             }
     
-            if (phoneId !== undefined) {
-                utilisateurData.phoneId = phoneId;
+            if (utilisateur.phoneId !== undefined) {
+                utilisateurData.phoneId = utilisateur.phoneId;
             }
     
             await updateDoc(utilisateurRef, utilisateurData);
-            console.log("Document updated with ID:", id);
+            console.log("Document updated with ID:", utilisateur.id);
         } catch (error) {
             console.error("Error updating utilisateur:", error);
             throw error;
@@ -75,6 +77,7 @@ class UtilisateurService {
             console.log("Document written with ID:", id);
         } catch (error) {
             console.error("Error deleting utilisateur:", error);
+            throw error;
         }
     }
 }

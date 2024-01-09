@@ -27,7 +27,7 @@ function UtilisateurList({
           <div key={utilisateur.id} className="bg-white shadow-md rounded-lg p-4">
             <p className="text-lg font-semibold">{utilisateur.name}</p>
             {utilisateur.securityQuestion && (
-              <p className="text-sm text-gray-600">Question de sécurité : {utilisateur.securityQuestion}</p>
+                <p className="text-sm text-gray-600">Question de sécurité : {utilisateur.securityQuestion.name}</p>
             )}
             {utilisateur.securityAnswer && (
               <p className="text-sm text-gray-600">Réponse à la question de sécurité : {utilisateur.securityAnswer}</p>
