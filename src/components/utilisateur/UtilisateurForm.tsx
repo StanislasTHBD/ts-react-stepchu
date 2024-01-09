@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import UtilisateurService from '../../services/UtilisateurService';
 import Utilisateur from '../../models/Utilisateur';
+import QuestionSecurityService from '../../services/QuestionSecurityService';
+import QuestionSecurity from '../../models/QuestionSecurity';
 
 export default function UtilisateurForm({
   isOpen,
@@ -11,9 +13,10 @@ export default function UtilisateurForm({
   onClose: () => void;
   initialData: Utilisateur | null;
 }) {
-  const initialFormData: Utilisateur = initialData || { name: '', securityQuestion: '', securityAnswer: '', phoneId: '' };
+  const initialFormData: Utilisateur = initialData || { name: '', securityQuestion: undefined, securityAnswer: '', phoneId: '' };
   const [formData, setFormData] = useState<Utilisateur>(initialFormData);
   const [isLoading, setIsLoading] = useState(false);
+  const [securityQuestions, setSecurityQuestions] = useState<QuestionSecurity[]>([]);
 
   useEffect(() => {
     if (initialData) {
@@ -21,11 +24,32 @@ export default function UtilisateurForm({
     } else {
       setFormData(initialFormData);
     }
+
+    loadSecurityQuestions();
   }, [initialData]);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const loadSecurityQuestions = async () => {
+    try {
+      const questionsData = await QuestionSecurityService.getAllQuestionSecuritys();
+      if (questionsData) {
+        setSecurityQuestions(questionsData);
+      } else {
+        console.log("No security questions found.");
+      }
+    } catch (error) {
+      console.error("Error loading security questions:", error);
+    }
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSecurityQuestionChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    const selectedSecurityQuestion = securityQuestions.find((question) => question.id === value);
+    setFormData({ ...formData, [name]: selectedSecurityQuestion });
   };
 
   const clearForm = () => {
@@ -41,20 +65,20 @@ export default function UtilisateurForm({
     try {
       setIsLoading(true);
       if (initialData) {
-        await UtilisateurService.updateUtilisateur(
-          initialData.id as string,
-          formData.name,
-          formData.securityQuestion,
-          formData.securityAnswer,
-          formData.phoneId,
-        );
+        await UtilisateurService.updateUtilisateur({
+          id: initialData.id as string,
+          name: formData.name,
+          securityQuestion: formData.securityQuestion,
+          securityAnswer: formData.securityAnswer,
+          phoneId: formData.phoneId,
+        });
       } else {
-        await UtilisateurService.createUtilisateur(
-          formData.name,
-          formData.securityQuestion,
-          formData.securityAnswer,
-          formData.phoneId,
-        );
+        await UtilisateurService.createUtilisateur({
+          name: formData.name,
+          securityQuestion: formData.securityQuestion,
+          securityAnswer: formData.securityAnswer,
+          phoneId: formData.phoneId,
+        });
       }
 
       onClose();
@@ -111,15 +135,20 @@ export default function UtilisateurForm({
                   <label htmlFor="securityQuestion" className="block text-gray-700 text-sm font-bold mb-2">
                     Question de sécurité :
                   </label>
-                  <input
-                    type="text"
+                  <select
                     id="securityQuestion"
                     name="securityQuestion"
-                    value={formData.securityQuestion}
-                    onChange={handleInputChange}
-                    autoComplete="off"
+                    value={formData.securityQuestion?.id || ''}
+                    onChange={handleSecurityQuestionChange}
                     className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:border-blue-500"
-                  />
+                  >
+                    <option value="">Sélectionnez une question de sécurité</option>
+                    {securityQuestions.map((question) => (
+                      <option key={question.id} value={question.id}>
+                        {question.name}
+                      </option>
+                    ))}
+                  </select>
                 </div>
                 <div className="mb-4">
                   <label htmlFor="securityAnswer" className="block text-gray-700 text-sm font-bold mb-2">
