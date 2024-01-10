@@ -80,9 +80,9 @@ function QuizzForm({
   const removeAnswer = (questionIndex: number, answerIndex: number) => {
     const updatedQuestions = [...formData.questions];
     const updatedAnswers = [...updatedQuestions[questionIndex].answers];
-  
+
     updatedAnswers.splice(answerIndex, 1);
-  
+
     updatedQuestions[questionIndex].answers = updatedAnswers;
     setFormData({ ...formData, questions: updatedQuestions });
   };
@@ -106,26 +106,26 @@ function QuizzForm({
       console.error("All fields must be filled, and each question must have between 2 and 4 answers with non-empty text.");
       return;
     }
-  
+
     const invalidQuestions = formData.questions.filter(
       (question) => question.answers.length < 2 || question.answers.length > 4
     );
-  
+
     if (invalidQuestions.length > 0) {
       console.error("Each question must have between 2 and 4 answers.");
       return;
     }
-  
+
     if (formData.questions.some((question) => !question.answers.some((answer) => answer.isCorrect))) {
       console.error("At least one correct answer must be selected for each question.");
       return;
     }
 
     if (formData.questions.some((question) => !question.answers.some((answer) => answer.isCorrect === false))) {
-        console.error("At least one answer in each question must be marked as 'false'.");
-        return;
-      }
-  
+      console.error("At least one answer in each question must be marked as 'false'.");
+      return;
+    }
+
     try {
       setIsLoading(true);
       if (initialData) {
@@ -134,7 +134,7 @@ function QuizzForm({
         const createdQuizz = await QuizzService.createQuizz(formData);
         formData.id = createdQuizz;
       }
-  
+
       onClose();
       clearForm();
     } catch (error) {
@@ -143,7 +143,7 @@ function QuizzForm({
       setIsLoading(false);
     }
   };
-  
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     validateAndSubmit();
@@ -200,40 +200,45 @@ function QuizzForm({
                   />
                 </div>
                 <div className="mb-4">
-                {formData.questions.map((question, questionIndex) => (
-                     <div key={questionIndex} className="mb-4">
-                      <label className="block text-gray-700 text-sm font-bold mb-2">
-                          Questions :
+                  {formData.questions.map((question, questionIndex) => (
+                    <div key={questionIndex} className="mb-4">
+                      <label
+                        htmlFor={`question-${questionIndex}`}
+                        className="block text-gray-700 text-sm font-bold mb-2"
+                      >
+                        Questions :
                       </label>
                       <input
                         type="text"
                         value={question.text}
                         onChange={(e) => handleQuestionChange(e, questionIndex)}
                         placeholder={`Question ${questionIndex + 1}`}
+                        id={`question-${questionIndex}`}
                         className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:border-blue-500"
                       />
                       <div className="mt-4">
-                        <label className="block text-gray-700 text-sm font-bold mb-2">
-                            Réponses :
-                        </label>
+                        <p className="block text-gray-700 text-sm font-bold mb-2">
+                          Réponses :
+                        </p>
                       </div>
                       {question.answers.map((answer, answerIndex) => (
                         <div key={answerIndex} className="mb-2">
                           <div className="flex items-center mb-2">
                             <input
-                                type="text"
-                                value={answer.text}
-                                onChange={(e) => handleAnswerChange(e, questionIndex, answerIndex)}
-                                name={`answer-${questionIndex}-${answerIndex}`}
-                                placeholder={`Réponse ${answerIndex + 1}`}
-                                className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:border-blue-500"
+                              type="text"
+                              value={answer.text}
+                              onChange={(e) => handleAnswerChange(e, questionIndex, answerIndex)}
+                              name={`answer-${questionIndex}-${answerIndex}`}
+                              placeholder={`Réponse ${answerIndex + 1}`}
+                              id={`answer-${questionIndex}-${answerIndex}`}
+                              className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:border-blue-500"
                             />
                             <button
-                                type="button"
-                                onClick={() => removeAnswer(questionIndex, answerIndex)}
-                                className="ml-2 text-red-500 hover:text-red-700"
+                              type="button"
+                              onClick={() => removeAnswer(questionIndex, answerIndex)}
+                              className="ml-2 text-red-500 hover:text-red-700"
                             >
-                                ❌
+                              ❌
                             </button>
                           </div>
                           <label className="ml-2">
