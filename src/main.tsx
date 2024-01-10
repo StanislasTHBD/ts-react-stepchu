@@ -14,6 +14,7 @@ import UtilisateurPage from './components/utilisateur/UtilisateurPage.tsx'
 import ChallengePage from './components/challenge/ChallengePage.tsx'
 import QuestionSecurityPage from './components/questionSecurity/QuestionSecurityPage.tsx'
 import AboutPage from './components/about/AboutPage.tsx'
+import QuizzPage from './components/quizz/QuizzPage.tsx'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -28,7 +29,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
               <Route path="/utilisateurs" element={<ErrorBoundary><UtilisateurPage /></ErrorBoundary>} />
               <Route path="/challenges" element={<ErrorBoundary><ChallengePage /></ErrorBoundary>} />
               <Route path="/evenements" element="#" />
-              <Route path="/quizzs" element="#" />
+              <Route path="/quizzs" element={<ErrorBoundary><QuizzPage /></ErrorBoundary>} />
               <Route path="/newsletters" element={<ErrorBoundary><NewsletterPage /></ErrorBoundary>} />
               <Route path="/questionSecuritys" element={<ErrorBoundary><QuestionSecurityPage /></ErrorBoundary>} />
               <Route path="/about" element={<AboutPage />} />
