@@ -1,3 +1,4 @@
+import Badge from "./Badge";
 import QuestionQuizz from "./QuestionQuizz";
 
 interface Quizz {
@@ -5,6 +6,7 @@ interface Quizz {
     title: string;
     description: string;
     questions: QuestionQuizz[];
+    badge: Badge;
 }
   
 export default Quizz;

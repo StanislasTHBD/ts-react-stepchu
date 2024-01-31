@@ -34,6 +34,11 @@ const Sidebar: React.FC<SidebarProps> = ({ children }) => {
             icon: <FaUserAlt />
         },
         {
+            path: "/badges",
+            name: "Badges",
+            icon: <FaRegChartBar />
+        },
+        {
             path: "/challenges",
             name: "Challenges",
             icon: <FaRegChartBar />
@@ -46,6 +51,11 @@ const Sidebar: React.FC<SidebarProps> = ({ children }) => {
         {
             path: "/quizzs",
             name: "Quizzs",
+            icon: <FaShoppingBag />
+        },
+        {
+            path: "/points",
+            name: "Points",
             icon: <FaShoppingBag />
         },
         {

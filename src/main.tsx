@@ -15,6 +15,8 @@ import ChallengePage from './components/challenge/ChallengePage.tsx'
 import QuestionSecurityPage from './components/questionSecurity/QuestionSecurityPage.tsx'
 import AboutPage from './components/about/AboutPage.tsx'
 import QuizzPage from './components/quizz/QuizzPage.tsx'
+import BadgePage from './components/badge/BadgePage.tsx'
+import PointPage from './components/point/PointPage.tsx'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -27,9 +29,11 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
             <Route path="/" element={<Protected />} >
               <Route path="/" index element="#" />
               <Route path="/utilisateurs" element={<ErrorBoundary><UtilisateurPage /></ErrorBoundary>} />
+              <Route path="/badges" element={<ErrorBoundary><BadgePage /></ErrorBoundary>} />
               <Route path="/challenges" element={<ErrorBoundary><ChallengePage /></ErrorBoundary>} />
               <Route path="/evenements" element="#" />
               <Route path="/quizzs" element={<ErrorBoundary><QuizzPage /></ErrorBoundary>} />
+              <Route path="/points" element={<ErrorBoundary><PointPage /></ErrorBoundary>} />
               <Route path="/newsletters" element={<ErrorBoundary><NewsletterPage /></ErrorBoundary>} />
               <Route path="/questionSecuritys" element={<ErrorBoundary><QuestionSecurityPage /></ErrorBoundary>} />
               <Route path="/about" element={<AboutPage />} />

@@ -13,7 +13,15 @@ export default function UtilisateurForm({
   onClose: () => void;
   initialData: Utilisateur | null;
 }) {
-  const initialFormData: Utilisateur = initialData || { name: '', securityQuestion: undefined, securityAnswer: '', phoneId: '' };
+  const initialFormData: Utilisateur = initialData || {
+    name: '',
+    securityQuestion: undefined,
+    securityAnswer: '',
+    phoneId: '',
+    badges: [],
+    completedQuizz: [],
+  };
+  
   const [formData, setFormData] = useState<Utilisateur>(initialFormData);
   const [isLoading, setIsLoading] = useState(false);
   const [securityQuestions, setSecurityQuestions] = useState<QuestionSecurity[]>([]);
@@ -71,6 +79,8 @@ export default function UtilisateurForm({
           securityQuestion: formData.securityQuestion,
           securityAnswer: formData.securityAnswer,
           phoneId: formData.phoneId,
+          badges: [],
+          completedQuizz: [], 
         });
       } else {
         await UtilisateurService.createUtilisateur({
@@ -78,6 +88,8 @@ export default function UtilisateurForm({
           securityQuestion: formData.securityQuestion,
           securityAnswer: formData.securityAnswer,
           phoneId: formData.phoneId,
+          badges: [],
+          completedQuizz: [], 
         });
       }
 

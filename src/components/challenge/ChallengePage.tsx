@@ -45,7 +45,7 @@ function ChallengePage() {
         await ChallengeService.deleteChallenge(id);
         fetchChallenges();
         } catch (error) {
-        console.error("Error deleting utilisateur:", error);
+        console.error("Error deleting challenge:", error);
         }
     }; 
 

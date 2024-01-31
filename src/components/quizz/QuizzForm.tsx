@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import QuizzService from '../../services/QuizzService';
 import Quizz from '../../models/Quizz';
+import Badge from '../../models/Badge';
+import BadgeService from '../../services/BadgeService';
+import Point from '../../models/Point';
+import PointService from '../../services/PointService';
 
 function QuizzForm({
   isOpen,
@@ -15,11 +19,28 @@ function QuizzForm({
     id: '',
     title: '',
     description: '',
-    questions: [{ id: '', text: '', answers: [{ id: '', text: '', isCorrect: false }] }],
+    badge: {} as Badge,
+    questions: [
+      {
+        id: '',
+        text: '',
+        answers: [
+          {
+            id: '',
+            text: '',
+            isCorrect: false,
+          },
+        ],
+        point: {} as Point,
+      },
+    ],
   };
-
+  
   const [formData, setFormData] = useState<Quizz>(initialFormData);
   const [isLoading, setIsLoading] = useState(false);
+  const [badges, setBadges] = useState<Badge[]>([]);
+  const [points, setPoints] = useState<Point[]>([]);
+
 
   useEffect(() => {
     if (initialData) {
@@ -27,7 +48,35 @@ function QuizzForm({
     } else {
       setFormData(initialFormData);
     }
+    loadBadges();
+    loadPoints();
   }, [initialData]);
+
+  const loadBadges = async () => {
+    try {
+      const badgeData = await BadgeService.getAllBadges();
+      if (badgeData) {
+        setBadges(badgeData);
+      } else {
+        console.log("No badges found.");
+      }
+    } catch (error) {
+      console.error("Error loading badges:", error);
+    }
+  };
+
+  const loadPoints = async () => {
+    try {
+      const pointData = await PointService.getAllPoints();
+      if (pointData) {
+        setPoints(pointData);
+      } else {
+        console.log("No points found.");
+      }
+    } catch (error) {
+      console.error("Error loading points:", error);
+    }
+  };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -58,9 +107,36 @@ function QuizzForm({
   };
 
   const addQuestion = () => {
-    const updatedQuestions = [...formData.questions, { id: '', text: '', answers: [{ id: '', text: '', isCorrect: false }] }];
+    const updatedQuestions = [
+      ...formData.questions,
+      {
+        id: '',
+        text: '',
+        answers: [{ id: '', text: '', isCorrect: false }],
+        point: {
+          id: '',
+          name: '',
+          number: 0,
+        },
+      },
+    ];
     setFormData({ ...formData, questions: updatedQuestions });
   };
+  
+  const handleBadgeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    const selectedBadge = badges.find((badge) => badge.id === value);
+    setFormData({ ...formData, [name]: selectedBadge });
+  };
+
+  const handlePointChange = (e: React.ChangeEvent<HTMLSelectElement>, questionIndex: number) => {
+    const { value } = e.target;
+    const selectedPoint = points.find((point) => point.id === value);
+    
+    const updatedQuestions = [...formData.questions];
+    updatedQuestions[questionIndex].point = selectedPoint || ({} as Point);
+    setFormData({ ...formData, questions: updatedQuestions });
+  };  
 
   const removeQuestion = (questionIndex: number) => {
     const updatedQuestions = [...formData.questions];
@@ -150,9 +226,9 @@ function QuizzForm({
   };
 
   return (
-    <div className={`modal ${isOpen ? 'block' : 'hidden'} flex items-center justify-center`}>
-      <div className={`${isLoading ? 'bg-orange-500' : 'bg-white'} modal-dialog p-4 shadow-md rounded-md`}>
-        <div className="modal-content">
+    <div className={`modal ${isOpen ? 'block' : 'hidden'} fixed top-0 left-0 w-full h-full flex items-center justify-center p-10`}>
+      <div className={`${isLoading ? 'bg-orange-500' : 'bg-white'} modal-dialog p-4 shadow-md rounded-md overflow-y-auto max-h-full`}>
+       <div className="modal-content">
           {isLoading ? (
             <div className="text-center text-black">Chargement en cours...</div>
           ) : (
@@ -200,6 +276,26 @@ function QuizzForm({
                   />
                 </div>
                 <div className="mb-4">
+                  <label htmlFor="badge" className="block text-gray-700 text-sm font-bold mb-2">
+                      Badge :
+                  </label>
+                  <select
+                      id="badge"
+                      name="badge"
+                      value={formData.badge?.id || ''}
+                      onChange={handleBadgeChange}
+                      required
+                      className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:border-blue-500"
+                  >
+                      <option value="">Sélectionnez un Badge</option>
+                      {badges.map((badge) => (
+                      <option key={badge.id} value={badge.id}>
+                          {badge.name}
+                      </option>
+                      ))}
+                  </select>
+                </div>
+                <div className="mb-4">
                   {formData.questions.map((question, questionIndex) => (
                     <div key={questionIndex} className="mb-4">
                       <label
@@ -216,6 +312,29 @@ function QuizzForm({
                         id={`question-${questionIndex}`}
                         className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:border-blue-500"
                       />
+                      <div className="mb-2">
+                        <label
+                          htmlFor={`point-${questionIndex}`}
+                          className="block text-gray-700 text-sm font-bold mb-2"
+                        >
+                          Point :
+                        </label>
+                        <select
+                          id={`point-${questionIndex}`}
+                          name={`point-${questionIndex}`}
+                          value={question.point.id || ''}
+                          onChange={(e) => handlePointChange(e, questionIndex)}
+                          required
+                          className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:border-blue-500"
+                        >
+                          <option value="">Sélectionnez un Point</option>
+                          {points.map((point) => (
+                            <option key={point.id} value={point.id}>
+                              {point.name}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
                       <div className="mt-4">
                         <p className="block text-gray-700 text-sm font-bold mb-2">
                           Réponses :
