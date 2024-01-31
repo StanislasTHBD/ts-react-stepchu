@@ -22,6 +22,7 @@ class QuizzService {
                 title: quizz.title,
                 description: quizz.description,
                 questions: quizz.questions,
+                badge: quizz.badge,
             };
 
             const quizzRef = await addDoc(collection(firestore, 'quizzes'), quizzData);
@@ -39,6 +40,7 @@ class QuizzService {
                 title: quizz.title,
                 description: quizz.description,
                 questions: quizz.questions,
+                badge: quizz.badge,
             };
 
             const quizzRef = doc(firestore, 'quizzes', quizz.id || '');

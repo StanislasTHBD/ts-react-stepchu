@@ -27,6 +27,7 @@ function QuizzList({
           <div key={quizz.id} className="bg-white shadow-md rounded-lg p-4">
             <p className="text-lg font-semibold">{quizz.title}</p>
             <p className="text-sm text-gray-600">Description : {quizz.description}</p>
+            <p className="text-sm text-gray-600">Badge : {quizz.badge?.name}</p>
             <div className="mt-2">
               <button
                 className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700 mr-2 mt-2"
@@ -43,6 +44,8 @@ function QuizzList({
             {quizz.questions.map((question, questionIndex) => (
               <div key={`${question.id}-${questionIndex}`} className="mt-4">
                 <p className="text-sm text-gray-600"><span className="text-lg font-semibold">{questionIndex + 1} : </span>{question.text}</p>
+                <p className="text-sm text-gray-600">Difficulté : {question.point?.name}</p>
+                <p className="text-sm text-gray-600">Nombre de points : {question.point?.number}</p>
                 <ul>
                   {question.answers.map((answer, answerIndex) => (
                     <li key={`${question.id}-${answerIndex}`}>
