@@ -1,5 +1,10 @@
 import Challenge from '../../models/Challenge';
 
+function formatDate(date: string): string {
+  const [year, month, day] = date.split('-');
+  return `${day}/${month}/${year}`;
+}
+
 function ChallengeList({
     challenges,
     onEdit,
@@ -27,6 +32,9 @@ function ChallengeList({
             <div key={challenge.id} className="bg-white shadow-md rounded-lg p-4">
                 <p className="text-lg font-semibold">{challenge.name}</p>
                 <p className="text-sm text-gray-600">Description: {challenge.description}</p>
+                <p className="text-sm text-gray-600">Badge : {challenge.badge?.name}</p>
+                <p className="text-sm text-gray-600">Début : {formatDate(challenge.startDate)}</p>
+                <p className="text-sm text-gray-600">Fin : {formatDate(challenge.endDate)}</p>
                 <div className="mt-2">
                     <button
                         className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700 mr-2 mt-2"
