@@ -41,7 +41,6 @@ function QuizzForm({
   const [badges, setBadges] = useState<Badge[]>([]);
   const [points, setPoints] = useState<Point[]>([]);
 
-
   useEffect(() => {
     if (initialData) {
       setFormData(initialData);
