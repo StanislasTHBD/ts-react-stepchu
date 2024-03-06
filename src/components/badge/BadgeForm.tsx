@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import Badge from '../../models/Badge';
-import BadgeService from '../../services/BadgeService';
-import BadgeColor from '../../models/BadgeColor';
-import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
-import { storage } from '../../firebase';
+import React, { useState, useEffect } from "react";
+import Badge from "../../models/Badge";
+import BadgeService from "../../services/BadgeService";
+import BadgeColor from "../../models/BadgeColor";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { storage } from "../../firebase";
 
 function BadgeForm({
   isOpen,
@@ -16,40 +16,40 @@ function BadgeForm({
 }) {
   const initialBadgeColors: BadgeColor[] = [
     {
-      type: 'Neutre',
+      type: "Neutre",
       minPoints: 0,
       maxPoints: 1000,
-      image: '',
+      image: "",
     },
     {
-      type: 'Bronze',
+      type: "Bronze",
       minPoints: 1001,
       maxPoints: 2000,
-      image: '',
+      image: "",
     },
     {
-      type: 'Argent',
+      type: "Argent",
       minPoints: 2001,
       maxPoints: 3000,
-      image: '',
+      image: "",
     },
     {
-      type: 'Or',
+      type: "Or",
       minPoints: 3001,
       maxPoints: 4000,
-      image: '',
+      image: "",
     },
     {
-      type: 'Platine',
+      type: "Platine",
       minPoints: 4001,
       maxPoints: 5000,
-      image: '',
+      image: "",
     },
   ];
 
   const initialFormData: Badge = initialData || {
-    name: '',
-    description: '',
+    name: "",
+    description: "",
     badgeColors: initialBadgeColors,
   };
 
@@ -64,27 +64,35 @@ function BadgeForm({
     }
   }, [initialData]);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
+  const handleImageChange = async (
+    e: React.ChangeEvent<HTMLInputElement>,
+    index: number
+  ) => {
     const { files } = e.target;
     if (files && files[0]) {
       try {
         const imageFile = files[0];
         if (imageFile.type === "image/svg+xml") {
           const updatedBadgeColors = [...formData.badgeColors];
-  
-          const storageRef = ref(storage, `badge_images/${imageFile.lastModified}_${imageFile.name}`);
+
+          const storageRef = ref(
+            storage,
+            `badge_images/${imageFile.lastModified}_${imageFile.name}`
+          );
           const uploadTask = uploadBytes(storageRef, imageFile);
-  
+
           const uploadResult = await uploadTask;
           const imageURL = await getDownloadURL(uploadResult.ref);
-  
+
           updatedBadgeColors[index].image = imageURL;
-  
+
           setFormData({ ...formData, badgeColors: updatedBadgeColors });
         } else {
           alert("Le fichier sélectionné n'est pas au format SVG.");
@@ -95,7 +103,7 @@ function BadgeForm({
       }
     }
   };
-  
+
   const clearForm = () => {
     setFormData(initialFormData);
   };
@@ -132,16 +140,27 @@ function BadgeForm({
   };
 
   return (
-    <div className={`modal ${isOpen ? 'block' : 'hidden'} fixed top-0 left-0 w-full h-full flex items-center justify-center p-10`}>
-      <div className={`${isLoading ? 'bg-orange-500' : 'bg-white'} modal-dialog p-4 shadow-md rounded-md overflow-y-auto max-h-full`}>
+    <div
+      className={`modal ${
+        isOpen ? "block" : "hidden"
+      } fixed top-0 left-0 w-full h-full flex items-center justify-center p-10`}
+    >
+      <div
+        className={`${
+          isLoading ? "bg-orange-500" : "bg-white"
+        } modal-dialog p-4 shadow-md rounded-md overflow-y-auto max-h-full w-full max-w-2xl`}
+      >
         <div className="modal-content">
           {isLoading ? (
             <div className="text-center text-black">Chargement en cours...</div>
           ) : (
-            <form onSubmit={handleSubmit} className="w-full max-w-lg mx-auto p-4">
+            <form
+              onSubmit={handleSubmit}
+              className="w-full max-w-lg mx-auto p-4"
+            >
               <div className="modal-header flex justify-between items-center">
                 <h3 className="text-xl font-bold">
-                  {initialData ? 'Modifier Badge' : 'Créer Badge'}
+                  {initialData ? "Modifier Badge" : "Créer Badge"}
                 </h3>
                 <button
                   type="button"
@@ -152,7 +171,10 @@ function BadgeForm({
                 </button>
               </div>
               <div className="mb-4">
-                <label htmlFor="name" className="block text-gray-700 text-sm font-bold mb-2">
+                <label
+                  htmlFor="name"
+                  className="block text-gray-700 text-sm font-bold mb-2"
+                >
                   Nom :
                 </label>
                 <input
@@ -167,7 +189,10 @@ function BadgeForm({
                 />
               </div>
               <div className="mb-4">
-                <label htmlFor="description" className="block text-gray-700 text-sm font-bold mb-2">
+                <label
+                  htmlFor="description"
+                  className="block text-gray-700 text-sm font-bold mb-2"
+                >
                   Description :
                 </label>
                 <textarea
@@ -185,41 +210,75 @@ function BadgeForm({
                   Couleurs du badge :
                 </label>
                 {formData.badgeColors.map((badgeColor, index) => (
-                  <div key={index}>
-                    <div className="mb-4">
-                      <label htmlFor={`type-${index}`} className="block text-gray-700 text-sm font-bold mb-2">
-                        Type de badge :
+                  <div
+                    key={index}
+                    className="grid grid-cols-2 gap-4 mb-8 bg-custom-blue bg-opacity-70 p-4 rounded-md"
+                  >
+                    <div>
+                      <label
+                        htmlFor={`type-${index}`}
+                        className="block text-custom-secondary text-sm font-bold mb-2"
+                      >
+                        Type de badge:
                       </label>
-                      <span className="text-gray-800 text-sm">{badgeColor.type}</span>
+                      <span className="text-custom-secondary text-sm">
+                        {badgeColor.type}
+                      </span>
                     </div>
-                    <div className="mb-4">
-                      <label htmlFor={`minPoints-${index}`} className="block text-gray-700 text-sm font-bold mb-2">
-                        Points minimum :
+                    <div>
+                      <label
+                        htmlFor={`minPoints-${index}`}
+                        className="block text-custom-secondary text-sm font-bold mb-2"
+                      >
+                        Points minimum:
                       </label>
-                      <span className="text-gray-800 text-sm">{badgeColor.minPoints}</span>
+                      <span className="text-custom-secondary text-sm">
+                        {badgeColor.minPoints}
+                      </span>
                     </div>
-                    <div className="mb-4">
-                      <label htmlFor={`maxPoints-${index}`} className="block text-gray-700 text-sm font-bold mb-2">
-                        Points maximum :
+                    <div>
+                      <label
+                        htmlFor={`image-${index}`}
+                        className="block text-custom-secondary text-sm font-bold mb-2"
+                      >
+                        Image (SVG):
                       </label>
-                      <span className="text-gray-800 text-sm">{badgeColor.maxPoints}</span>
-                    </div>
-                    <div className="mb-4">
-                      <label htmlFor={`image-${index}`} className="block text-gray-700 text-sm font-bold mb-2">
-                        Image (SVG) :
-                      </label>
-                      {badgeColor.image && typeof badgeColor.image === 'string' ? (
-                        <img src={badgeColor.image} alt={`Badge Color ${index}`} className="w-16 h-16" />
+                      {badgeColor.image &&
+                      typeof badgeColor.image === "string" ? (
+                        <img
+                          src={badgeColor.image}
+                          alt={`Badge Color ${index}`}
+                          className="w-16 h-16"
+                        />
                       ) : (
-                        <p>Pas d'image disponible</p>
+                        <p className="m-2 text-custom-secondary">
+                          Pas d'image disponible
+                        </p>
                       )}
+                      <label
+                        htmlFor={`file-upload-${index}`}
+                        className="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg cursor-pointer"
+                      >
+                        {initialData ? "Changer l'image" : "Mettre une image"}
+                      </label>
                       <input
                         type="file"
-                        id={`image-${index}`}
+                        id={`file-upload-${index}`}
                         accept=".svg"
                         onChange={(e) => handleImageChange(e, index)}
-                        className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:border-blue-500"
+                        className="hidden"
                       />
+                    </div>
+                    <div>
+                      <label
+                        htmlFor={`maxPoints-${index}`}
+                        className="block text-custom-secondary text-sm font-bold mb-2"
+                      >
+                        Points maximum:
+                      </label>
+                      <span className="text-custom-secondary text-sm">
+                        {badgeColor.maxPoints}
+                      </span>
                     </div>
                   </div>
                 ))}
@@ -229,7 +288,7 @@ function BadgeForm({
                   type="submit"
                   className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700 mr-2"
                 >
-                  {initialData ? 'Modifier' : 'Créer'}
+                  {initialData ? "Modifier" : "Créer"}
                 </button>
                 <button
                   type="button"
