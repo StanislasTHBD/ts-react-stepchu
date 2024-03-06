@@ -34,9 +34,9 @@ const Sidebar: React.FC<SidebarProps> = ({ children }) => {
             icon: <FaUserAlt />
         },
         {
-            path: "/badges",
-            name: "Badges",
-            icon: <FaRegChartBar />
+            path: "/newsletters",
+            name: "Newsletters",
+            icon: <FaThList />
         },
         {
             path: "/challenges",
@@ -54,14 +54,14 @@ const Sidebar: React.FC<SidebarProps> = ({ children }) => {
             icon: <FaShoppingBag />
         },
         {
+            path: "/badges",
+            name: "Badges",
+            icon: <FaRegChartBar />
+        },
+        {
             path: "/points",
             name: "Points",
             icon: <FaShoppingBag />
-        },
-        {
-            path: "/newsletters",
-            name: "Newsletters",
-            icon: <FaThList />
         },
         {
             path: "/questionSecuritys",
@@ -86,10 +86,10 @@ const Sidebar: React.FC<SidebarProps> = ({ children }) => {
     return (
         <div className="flex">
             {shouldRenderSidebar && (
-                <div className={`${isOpen ? 'w-48' : 'w-20'} bg-black text-white h-screen fixed overflow-y-auto`}>
+                <div className={`${isOpen ? 'w-48' : 'w-20'} bg-custom-blue text-white h-screen fixed overflow-y-auto`}>
                     <div className="flex flex-col justify-between h-screen">
-                        <div className="bg-blue-500">
-                            <div className="flex items-center p-4 hover:text-gray-600">
+                        <div className="bg-custom-blue">
+                            <div className="flex items-center p-4 hover:bg-custom-orange">
                                 <h1 className={`${isOpen ? 'block' : 'hidden'} m-2 text-2xl font-bold`}>StepCHU</h1>
                                 <div className="m-2">
                                     <FaBars className="text-2xl cursor-pointer" onClick={toggle} />
@@ -99,7 +99,7 @@ const Sidebar: React.FC<SidebarProps> = ({ children }) => {
                                 <NavLink
                                     to={item.path}
                                     key={index}
-                                    className="flex items-center text-white p-2 hover:text-gray-600"
+                                    className="flex items-center text-white p-2 hover:bg-custom-orange"
                                 >
                                     <div className="text-xl m-4">{item.icon}</div>
                                     <div className={`${isOpen ? 'block' : 'hidden'} m-2`}>{item.name}</div>
@@ -109,7 +109,7 @@ const Sidebar: React.FC<SidebarProps> = ({ children }) => {
                         <div className="bg-red-500">
                             <NavLink
                                 to="/logout"
-                                className="flex items-center p-2 hover:text-gray-600"
+                                className="flex items-center p-2 hover:bg-custom-orange"
                                 onClick={handleLogout}
                             >
                                 <div className="text-xl m-4">

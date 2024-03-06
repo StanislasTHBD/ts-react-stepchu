@@ -135,6 +135,9 @@ export default {
     },
     caretColor: ({ theme }) => theme('colors'),
     colors: ({ colors }) => ({
+      'custom-blue': '#005FAA',
+      'custom-orange': '#FF7853',
+      'custom-secondary': colors.white,
       inherit: colors.inherit,
       current: colors.current,
       transparent: colors.transparent,

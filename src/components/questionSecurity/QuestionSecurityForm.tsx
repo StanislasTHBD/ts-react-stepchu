@@ -67,7 +67,7 @@ export default function QuestionSecurityForm({
 
   return (
     <div className={`modal ${isOpen ? 'block' : 'hidden'} fixed top-0 left-0 w-full h-full flex items-center justify-center`}>
-      <div className={`${isLoading ? 'bg-orange-500' : 'bg-white'} modal-dialog p-4 shadow-md rounded-md`}>
+      <div className={`${isLoading ? 'bg-orange-500' : 'bg-white'} modal-dialog p-4 shadow-md rounded-md w-full max-w-2xl`}>
         <div className="modal-content">
           {isLoading ? (
             <div className="text-center text-black">Chargement en cours...</div>
