@@ -10,7 +10,9 @@ import {
     FaThList,
     FaInfo,
     FaSignOutAlt,
-    FaQuestion
+    FaQuestion,
+    FaShoePrints,
+    FaIdBadge
 } from "react-icons/fa";
 import { logoutUser } from '../services/AuthService';
 
@@ -27,6 +29,11 @@ const Sidebar: React.FC<SidebarProps> = ({ children }) => {
             path: "/",
             name: "Dashboard",
             icon: <FaTh />
+        },
+        {
+            path: "/steps",
+            name: "Steps",
+            icon: <FaShoePrints />
         },
         {
             path: "/utilisateurs",
@@ -56,7 +63,7 @@ const Sidebar: React.FC<SidebarProps> = ({ children }) => {
         {
             path: "/badges",
             name: "Badges",
-            icon: <FaRegChartBar />
+            icon: <FaIdBadge />
         },
         {
             path: "/points",
