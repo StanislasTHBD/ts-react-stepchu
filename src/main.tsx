@@ -17,6 +17,8 @@ import AboutPage from './components/about/AboutPage.tsx'
 import QuizzPage from './components/quizz/QuizzPage.tsx'
 import BadgePage from './components/badge/BadgePage.tsx'
 import PointPage from './components/point/PointPage.tsx'
+import DashboardPage from './components/dashboard/DashboardPage.tsx'
+import StepPage from './components/step/StepPage.tsx'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -27,7 +29,8 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
             <Route path="signup" element={<SignUp />} />
             <Route path="login" element={<Login />} />
             <Route path="/" element={<Protected />} >
-              <Route path="/" index element="#" />
+              <Route path="/" index element={<ErrorBoundary><DashboardPage /></ErrorBoundary>} />
+              <Route path="/steps" element={<ErrorBoundary><StepPage /></ErrorBoundary>} />
               <Route path="/utilisateurs" element={<ErrorBoundary><UtilisateurPage /></ErrorBoundary>} />
               <Route path="/badges" element={<ErrorBoundary><BadgePage /></ErrorBoundary>} />
               <Route path="/challenges" element={<ErrorBoundary><ChallengePage /></ErrorBoundary>} />

@@ -18,8 +18,8 @@ export default function UtilisateurForm({
     securityQuestion: undefined,
     securityAnswer: '',
     phoneId: '',
-    badges: [],
-    completedQuizz: [],
+    // badges: [],
+    // completedQuizz: [],
   };
   
   const [formData, setFormData] = useState<Utilisateur>(initialFormData);
@@ -79,8 +79,8 @@ export default function UtilisateurForm({
           securityQuestion: formData.securityQuestion,
           securityAnswer: formData.securityAnswer,
           phoneId: formData.phoneId,
-          badges: [],
-          completedQuizz: [], 
+          // badges: [],
+          // completedQuizz: [], 
         });
       } else {
         await UtilisateurService.createUtilisateur({
@@ -88,8 +88,8 @@ export default function UtilisateurForm({
           securityQuestion: formData.securityQuestion,
           securityAnswer: formData.securityAnswer,
           phoneId: formData.phoneId,
-          badges: [],
-          completedQuizz: [], 
+          // badges: [],
+          // completedQuizz: [], 
         });
       }
 
