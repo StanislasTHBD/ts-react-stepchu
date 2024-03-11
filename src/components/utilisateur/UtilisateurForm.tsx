@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import UtilisateurService from '../../services/UtilisateurService';
 import Utilisateur from '../../models/Utilisateur';
-import QuestionSecurityService from '../../services/QuestionSecurityService';
-import QuestionSecurity from '../../models/QuestionSecurity';
+// import QuestionSecurityService from '../../services/QuestionSecurityService';
+// import QuestionSecurity from '../../models/QuestionSecurity';
 
 export default function UtilisateurForm({
   isOpen,
@@ -24,7 +24,7 @@ export default function UtilisateurForm({
   
   const [formData, setFormData] = useState<Utilisateur>(initialFormData);
   const [isLoading, setIsLoading] = useState(false);
-  const [securityQuestions, setSecurityQuestions] = useState<QuestionSecurity[]>([]);
+  // const [securityQuestions, setSecurityQuestions] = useState<QuestionSecurity[]>([]);
 
   useEffect(() => {
     if (initialData) {
@@ -33,32 +33,32 @@ export default function UtilisateurForm({
       setFormData(initialFormData);
     }
 
-    loadSecurityQuestions();
+    // loadSecurityQuestions();
   }, [initialData]);
 
-  const loadSecurityQuestions = async () => {
-    try {
-      const questionsData = await QuestionSecurityService.getAllQuestionSecuritys();
-      if (questionsData) {
-        setSecurityQuestions(questionsData);
-      } else {
-        console.log("No security questions found.");
-      }
-    } catch (error) {
-      console.error("Error loading security questions:", error);
-    }
-  };
+  // const loadSecurityQuestions = async () => {
+  //   try {
+  //     const questionsData = await QuestionSecurityService.getAllQuestionSecuritys();
+  //     if (questionsData) {
+  //       setSecurityQuestions(questionsData);
+  //     } else {
+  //       console.log("No security questions found.");
+  //     }
+  //   } catch (error) {
+  //     console.error("Error loading security questions:", error);
+  //   }
+  // };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSecurityQuestionChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const { name, value } = e.target;
-    const selectedSecurityQuestion = securityQuestions.find((question) => question.id === value);
-    setFormData({ ...formData, [name]: selectedSecurityQuestion });
-  };
+  // const handleSecurityQuestionChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  //   const { name, value } = e.target;
+  //   const selectedSecurityQuestion = securityQuestions.find((question) => question.id === value);
+  //   setFormData({ ...formData, [name]: selectedSecurityQuestion });
+  // };
 
   const clearForm = () => {
     setFormData(initialFormData);
@@ -143,7 +143,7 @@ export default function UtilisateurForm({
                     className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:border-blue-500"
                   />
                 </div>
-                <div className="mb-4">
+                {/* <div className="mb-4">
                   <label htmlFor="securityQuestion" className="block text-gray-700 text-sm font-bold mb-2">
                     Question de sécurité :
                   </label>
@@ -189,7 +189,7 @@ export default function UtilisateurForm({
                     autoComplete="off"
                     className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:border-blue-500"
                   />
-                </div>
+                </div> */}
               </div>
               <div className="modal-footer flex justify-end">
                 <button
