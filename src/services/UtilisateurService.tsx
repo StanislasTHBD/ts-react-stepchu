@@ -70,6 +70,22 @@ class UtilisateurService {
         }
     }
     
+    async resetUtilisateurFields(id: string) {
+        try {
+            const utilisateurRef = doc(firestore, 'utilisateurs', id);
+            const utilisateurData = {
+                securityQuestion: "",
+                securityAnswer: ""
+            };
+
+            await updateDoc(utilisateurRef, utilisateurData);
+            console.log("Utilisateur fields reset for ID:", id);
+        } catch (error) {
+            console.error("Error resetting utilisateur fields:", error);
+            throw error;
+        }
+    }
+
     async deleteUtilisateur(id: string) {
         try {
             const utilisateurRef = doc(firestore, 'utilisateurs', id);

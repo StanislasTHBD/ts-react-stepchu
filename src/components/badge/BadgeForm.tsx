@@ -79,7 +79,7 @@ function BadgeForm({
     if (files && files[0]) {
       try {
         const imageFile = files[0];
-        if (imageFile.type === "image/svg+xml") {
+        // if (imageFile.type === "image/svg+xml") {
           const updatedBadgeColors = [...formData.badgeColors];
 
           const storageRef = ref(
@@ -94,10 +94,10 @@ function BadgeForm({
           updatedBadgeColors[index].image = imageURL;
 
           setFormData({ ...formData, badgeColors: updatedBadgeColors });
-        } else {
-          alert("Le fichier sélectionné n'est pas au format SVG.");
-          console.error("Le fichier sélectionné n'est pas au format SVG.");
-        }
+        // } else {
+        //   alert("Le fichier sélectionné n'est pas au format SVG.");
+        //   console.error("Le fichier sélectionné n'est pas au format SVG.");
+        // }
       } catch (error) {
         console.error("Erreur lors du téléchargement de l'image :", error);
       }
@@ -241,7 +241,8 @@ function BadgeForm({
                         htmlFor={`image-${index}`}
                         className="block text-custom-secondary text-sm font-bold mb-2"
                       >
-                        Image (SVG):
+                        {/* Image (SVG): */}
+                        Image :
                       </label>
                       {badgeColor.image &&
                       typeof badgeColor.image === "string" ? (
@@ -264,7 +265,7 @@ function BadgeForm({
                       <input
                         type="file"
                         id={`file-upload-${index}`}
-                        accept=".svg"
+                        // accept=".svg"
                         onChange={(e) => handleImageChange(e, index)}
                         className="hidden"
                       />
