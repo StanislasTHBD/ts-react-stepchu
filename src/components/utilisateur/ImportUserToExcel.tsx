@@ -57,7 +57,7 @@ function ImportUserToExcel() {
   };
 
   return (
-    <div className="mb-4 flex items-center">
+    <div className=" flex flex-col md:flex-row md:items-center">
       <input
         type="file"
         accept=".xlsx"
@@ -67,14 +67,14 @@ function ImportUserToExcel() {
       />
       <label
         htmlFor="file-upload"
-        className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded cursor-pointer mr-2"
+        className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded cursor-pointer m-2"
       >
         {file ? file.name : "Choisir un fichier"}
       </label>
       <button
         onClick={handleImport}
         disabled={!file}
-        className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded cursor-pointer"
+        className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded cursor-pointer m-2"
       >
         Importer Utilisateurs
       </button>

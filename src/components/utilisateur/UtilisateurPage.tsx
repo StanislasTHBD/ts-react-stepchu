@@ -4,12 +4,14 @@ import Utilisateur from "../../models/Utilisateur";
 import UtilisateurService from "../../services/UtilisateurService";
 import UtilisateurForm from "./UtilisateurForm";
 import ImportUserToExcel from "./ImportUserToExcel";
+import LoadingScreen from "../LoadingScreen/LoadingScreen";
 
 function UtilisateurPage() {
   const [utilisateurs, setUtilisateurs] = useState<Utilisateur[]>([]);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [selectedUtilisateur, setSelectedUtilisateur] = useState<Utilisateur | null>(null);
   const [searchTerm, setSearchTerm] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
     fetchUtilisateurs();
@@ -25,6 +27,8 @@ function UtilisateurPage() {
       }
     } catch (error) {
       console.error("Error loading utilisateurs:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -70,30 +74,34 @@ function UtilisateurPage() {
     setSearchTerm(event.target.value);
   };
 
+  if (isLoading) {
+    return <LoadingScreen />;
+  }
+
   return (
     <div className="p-4">
-      <h1 className="text-2xl font-bold mb-4 text-custom-secondary">Liste Utilisateurs</h1>
+      <h1 className="text-lg sm:text-xl md:text-2xl font-bold mb-4 text-custom-secondary">Liste Utilisateurs</h1>
       <ImportUserToExcel />
-      <div className="flex mb-4">
+      <div className="flex flex-col md:flex-row md:items-center">
         <input
           type="text"
           placeholder="Rechercher par nom..."
           value={searchTerm}
           onChange={handleSearchChange}
-          className="p-2 border border-gray-300 rounded-md mr-2"
+          className="p-2 border border-gray-300 rounded-md m-2"
         />
-      <button
-        className="bg-red-500 text-white px-4 py-2 rounded hover:bg-blue-700 mr-2"
-        onClick={() => handleClearUsers()}
-      >
-        Supprimer les Utilisateurs
-      </button>
-      <button
-        className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700"
-        onClick={() => openModal(null)}
-      >
-        Créer Utilisateur
-      </button>
+        <button
+          className="bg-red-500 text-white px-3 py-2 rounded hover:bg-red-700 m-2"
+          onClick={() => handleClearUsers()}
+        >
+          Supprimer les Utilisateurs
+        </button>
+        <button
+          className="bg-blue-500 text-white px-3 py-2 rounded hover:bg-blue-700 m-2"
+          onClick={() => openModal(null)}
+        >
+          Créer Utilisateur
+        </button>
       </div>
       <UtilisateurList
         utilisateurs={utilisateurs}

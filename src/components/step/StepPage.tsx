@@ -5,10 +5,12 @@ import StepService from '../../services/StepService';
 import StepList from './StepList';
 import ExportStepsToExcel from './ExportStepsToExcel';
 import UtilisateurService from '../../services/UtilisateurService';
+import LoadingScreen from '../LoadingScreen/LoadingScreen';
 
 function StepPage() {
     const [steps, setSteps] = useState<Steps[]>([]);
     const [utilisateurs, setUtilisateurs] = useState<Utilisateur[]>([]); 
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         fetchSteps();
@@ -29,6 +31,8 @@ function StepPage() {
             }
         } catch (error) {
             console.error("Error loading steps:", error);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -40,6 +44,10 @@ function StepPage() {
             console.error("Error loading utilisateurs:", error);
         }
     };
+
+    if (loading) {
+        return <LoadingScreen />;
+    }
 
     return (
         <div className='p-4'>
