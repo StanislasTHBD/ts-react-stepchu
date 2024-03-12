@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import UtilisateurList from "./UtilisateurList";
 import Utilisateur from "../../models/Utilisateur";
 import UtilisateurService from "../../services/UtilisateurService";
@@ -8,16 +8,16 @@ import ImportUserToExcel from "./ImportUserToExcel";
 function UtilisateurPage() {
   const [utilisateurs, setUtilisateurs] = useState<Utilisateur[]>([]);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [selectedUtilisateur, setSelectedUtilisateur] =
-    useState<Utilisateur | null>(null);
+  const [selectedUtilisateur, setSelectedUtilisateur] = useState<Utilisateur | null>(null);
+  const [searchTerm, setSearchTerm] = useState<string>("");
 
   useEffect(() => {
     fetchUtilisateurs();
-  }, []);
+  }, [searchTerm]);
 
   const fetchUtilisateurs = async () => {
     try {
-      const utilisateursData = await UtilisateurService.getAllUtilisateurs();
+      const utilisateursData = await UtilisateurService.getAllUtilisateurs(searchTerm);
       if (utilisateursData !== undefined) {
         setUtilisateurs(utilisateursData as Utilisateur[]);
       } else {
@@ -66,12 +66,22 @@ function UtilisateurPage() {
     }
   };
 
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(event.target.value);
+  };
+
   return (
     <div className="p-4">
-      <h1 className="text-2xl font-bold mb-4 text-custom-secondary">
-        Liste Utilisateurs
-      </h1>
+      <h1 className="text-2xl font-bold mb-4 text-custom-secondary">Liste Utilisateurs</h1>
       <ImportUserToExcel />
+      <div className="flex mb-4">
+        <input
+          type="text"
+          placeholder="Rechercher par nom..."
+          value={searchTerm}
+          onChange={handleSearchChange}
+          className="p-2 border border-gray-300 rounded-md mr-2"
+        />
       <button
         className="bg-red-500 text-white px-4 py-2 rounded hover:bg-blue-700 mr-2"
         onClick={() => handleClearUsers()}
@@ -84,6 +94,7 @@ function UtilisateurPage() {
       >
         Créer Utilisateur
       </button>
+      </div>
       <UtilisateurList
         utilisateurs={utilisateurs}
         onEdit={openModal}

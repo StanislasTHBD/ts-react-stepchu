@@ -4,16 +4,26 @@ import {
   deleteDoc,
   doc,
   getDocs,
+  query,
   updateDoc,
+  where,
 } from "@firebase/firestore";
 import { firestore } from "../firebase";
 import Utilisateur from "../models/Utilisateur";
 import StepService from "./StepService";
 
 class UtilisateurService {
-  async getAllUtilisateurs() {
+  async getAllUtilisateurs(searchTerm: string = "") {
     try {
-      const utilisateurs = await getDocs(collection(firestore, "utilisateurs"));
+      let utilisateursQuery = query(collection(firestore, "utilisateurs"));
+      
+      // Apply search filter if searchTerm is provided
+      if (searchTerm) {
+        utilisateursQuery = query(utilisateursQuery, where("name", ">=", searchTerm), where("name", "<=", searchTerm + "\uf8ff"));
+      }
+  
+      const utilisateurs = await getDocs(utilisateursQuery);
+      
       return utilisateurs.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
@@ -30,9 +40,9 @@ class UtilisateurService {
         name: String(utilisateur.name),
       };
 
-      if (utilisateur.securityQuestion !== undefined) {
-        utilisateurData.securityQuestion = utilisateur.securityQuestion;
-      }
+      // if (utilisateur.securityQuestion !== undefined) {
+      //   utilisateurData.securityQuestion = utilisateur.securityQuestion;
+      // }
 
       if (utilisateur.securityAnswer !== undefined) {
         utilisateurData.securityAnswer = utilisateur.securityAnswer;
@@ -65,9 +75,9 @@ class UtilisateurService {
         name: utilisateur.name,
       };
 
-      if (utilisateur.securityQuestion !== undefined) {
-        utilisateurData.securityQuestion = utilisateur.securityQuestion;
-      }
+      // if (utilisateur.securityQuestion !== undefined) {
+      //   utilisateurData.securityQuestion = utilisateur.securityQuestion;
+      // }
 
       if (utilisateur.securityAnswer !== undefined) {
         utilisateurData.securityAnswer = utilisateur.securityAnswer;
@@ -89,7 +99,7 @@ class UtilisateurService {
     try {
       const utilisateurRef = doc(firestore, "utilisateurs", id);
       const utilisateurData = {
-        securityQuestion: "",
+        // securityQuestion: "",
         securityAnswer: "",
       };
 

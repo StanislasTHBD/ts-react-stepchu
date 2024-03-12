@@ -10,7 +10,7 @@ import {
     FaThList,
     FaInfo,
     FaSignOutAlt,
-    FaQuestion,
+    // FaQuestion,
     FaShoePrints,
     FaIdBadge
 } from "react-icons/fa";
@@ -70,11 +70,11 @@ const Sidebar: React.FC<SidebarProps> = ({ children }) => {
             name: "Points",
             icon: <FaShoppingBag />
         },
-        {
-            path: "/questionSecuritys",
-            name: "Question Sécurité",
-            icon: <FaQuestion />
-        },
+        // {
+        //     path: "/questionSecuritys",
+        //     name: "Question Sécurité",
+        //     icon: <FaQuestion />
+        // },
         {
             path: "/about",
             name: "A propos",

@@ -4,7 +4,7 @@ import TotalNewslettersCard from './TotalNewslettersCard';
 import TotalQuizzesCard from './TotalQuizzesCard';
 import TotalBadgesCard from './TotalBadgesCard';
 import TotalChallengesCard from './TotalChallengesCard';
-import TotalSecurityQuestionsCard from './TotalSecurityQuestionsCard';
+// import TotalSecurityQuestionsCard from './TotalSecurityQuestionsCard';
 import TotalPointsCard from './TotalPointsCard';
 import TotalStepsCard from './TotalStepsCard';
 
@@ -23,7 +23,7 @@ const DashboardPage: React.FC = () => {
     <TotalQuizzesCard />
      <TotalBadgesCard />
      <TotalPointsCard />
-     <TotalSecurityQuestionsCard />
+     {/* <TotalSecurityQuestionsCard /> */}
     </div>
   );
 };

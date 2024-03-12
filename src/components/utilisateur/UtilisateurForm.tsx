@@ -15,7 +15,7 @@ export default function UtilisateurForm({
 }) {
   const initialFormData: Utilisateur = initialData || {
     name: '',
-    securityQuestion: undefined,
+    // securityQuestion: undefined,
     securityAnswer: '',
     phoneId: '',
     // badges: [],
@@ -76,7 +76,7 @@ export default function UtilisateurForm({
         await UtilisateurService.updateUtilisateur({
           id: initialData.id as string,
           name: formData.name,
-          securityQuestion: formData.securityQuestion,
+          // securityQuestion: formData.securityQuestion,
           securityAnswer: formData.securityAnswer,
           phoneId: formData.phoneId,
           // badges: [],
@@ -85,7 +85,7 @@ export default function UtilisateurForm({
       } else {
         await UtilisateurService.createUtilisateur({
           name: formData.name,
-          securityQuestion: formData.securityQuestion,
+          // securityQuestion: formData.securityQuestion,
           securityAnswer: formData.securityAnswer,
           phoneId: formData.phoneId,
           // badges: [],
