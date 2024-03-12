@@ -1,10 +1,8 @@
-import Utilisateur from "./Utilisateur";
-
 interface Steps {
     id?: string;
-    date: Date; 
-    steps: number; 
-    user: Utilisateur;
+    date: Date;
+    steps: number;
+    userId: string;
 }
 
 export default Steps;

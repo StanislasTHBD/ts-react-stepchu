@@ -2,21 +2,27 @@ import React from 'react';
 import * as XLSX from 'xlsx';
 
 import StepService from '../../services/StepService';
+import UtilisateurService from '../../services/UtilisateurService';
 import Steps from '../../models/Steps';
+import Utilisateur from '../../models/Utilisateur';
 
 const ExportStepsToExcel: React.FC = () => {
   const exportToExcel = async () => {
     try {
       const steps: Steps[] = await StepService.getAllSteps();
+      const utilisateurs: Utilisateur[] = await UtilisateurService.getAllUtilisateurs();
+      
       const data: any[] = [];
       
       data.push(["Date", "Nombre de pas", "Utilisateur"]);
 
       steps.forEach(step => {
+        const user: Utilisateur | undefined = utilisateurs.find(u => u.id === step.userId);
+        const nomUtilisateur = user ? user.name : "Utilisateur inconnu";
         data.push([
           step.date,
           step.steps,
-          step.user.name,
+          nomUtilisateur,
         ]);
       });
 

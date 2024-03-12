@@ -1,8 +1,10 @@
 import React from 'react';
 import Steps from '../../models/Steps';
+import Utilisateur from '../../models/Utilisateur';
 
 interface StepListProps {
   steps: Steps[];
+  utilisateurs: Utilisateur[];
 }
 
 function formatDate(date: Date): string {
@@ -11,7 +13,7 @@ function formatDate(date: Date): string {
   return `${day}/${month}/${year}`;
 }
 
-const StepList: React.FC<StepListProps> = ({ steps }) => {
+const StepList: React.FC<StepListProps> = ({ steps, utilisateurs }) => {
   return (
     <div className="max-w-3xl mx-auto">
       <div className="overflow-hidden border-b border-gray-200 shadow sm:rounded-lg">
@@ -21,13 +23,17 @@ const StepList: React.FC<StepListProps> = ({ steps }) => {
             <div className="p-4 text-center">Nombre de pas</div>
             <div className="p-4 text-center">Utilisateur</div>
           </div>
-          {steps.map((step) => (
-            <div key={step.id} className="grid grid-cols-1 sm:grid-cols-3 gap-4 hover:bg-custom-orange">
-              <div className="p-4 text-center">{formatDate(step.date)}</div>
-              <div className="p-4 text-center">{step.steps}</div>
-              <div className="p-4 text-center">{step.user.name}</div>
-            </div>
-          ))}
+          {steps.map((step) => {
+            const utilisateur = utilisateurs.find((user) => user.id === step.userId);
+            const nomUtilisateur = utilisateur ? utilisateur.name : "Utilisateur inconnu";
+            return (
+              <div key={step.id} className="grid grid-cols-1 sm:grid-cols-3 gap-4 hover:bg-custom-orange">
+                <div className="p-4 text-center">{formatDate(step.date)}</div>
+                <div className="p-4 text-center">{step.steps}</div>
+                <div className="p-4 text-center">{nomUtilisateur}</div>
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>

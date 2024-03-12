@@ -3,6 +3,7 @@ import {
   collection,
   deleteDoc,
   doc,
+  getDoc,
   getDocs,
   query,
   updateDoc,
@@ -31,6 +32,29 @@ class UtilisateurService {
     } catch (error) {
       console.error("Error loading users:", error);
       throw error;
+    }
+  }
+
+  async getUserById(userId: string): Promise<Utilisateur | null> {
+    try {
+      const utilisateurDoc = await getDoc(doc(firestore, "utilisateurs", userId));
+      
+      if (utilisateurDoc.exists()) {
+        const userData = utilisateurDoc.data();
+        const utilisateur: Utilisateur = {
+          id: utilisateurDoc.id,
+          name: userData.name,
+          securityAnswer: userData.securityAnswer || undefined,
+          phoneId: userData.phoneId || undefined
+        };
+        return utilisateur;
+      } else {
+        console.error(`Utilisateur avec l'ID ${userId} non trouvé.`);
+        return null;
+      }
+    } catch (error) {
+      console.error("Erreur lors de la récupération de l'utilisateur:", error);
+      return null;
     }
   }
 
