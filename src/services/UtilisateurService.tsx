@@ -26,7 +26,7 @@ class UtilisateurService {
   async createUtilisateur(utilisateur: Utilisateur) {
     try {
       const utilisateurData: any = {
-        name: utilisateur.name,
+        name: String(utilisateur.name),
       };
 
       if (utilisateur.securityQuestion !== undefined) {
