@@ -8,6 +8,7 @@ import {
 } from "@firebase/firestore";
 import { firestore } from "../firebase";
 import Utilisateur from "../models/Utilisateur";
+import StepService from "./StepService";
 
 class UtilisateurService {
   async getAllUtilisateurs() {
@@ -119,7 +120,7 @@ class UtilisateurService {
       const deletionPromises = snapshot.docs.map(async (doc) => {
         await deleteDoc(doc.ref);
       });
-
+      StepService.clearSteps();
       await Promise.all(deletionPromises);
       console.log("All utilisateurs have been deleted.");
     } catch (error) {
