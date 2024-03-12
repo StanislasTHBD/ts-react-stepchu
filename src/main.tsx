@@ -12,7 +12,7 @@ import NewsletterPage from './components/newsletter/NewsletterPage.tsx'
 import Logout from './components/auth/Logout.tsx'
 import UtilisateurPage from './components/utilisateur/UtilisateurPage.tsx'
 import ChallengePage from './components/challenge/ChallengePage.tsx'
-import QuestionSecurityPage from './components/questionSecurity/QuestionSecurityPage.tsx'
+// import QuestionSecurityPage from './components/questionSecurity/QuestionSecurityPage.tsx'
 import AboutPage from './components/about/AboutPage.tsx'
 import QuizzPage from './components/quizz/QuizzPage.tsx'
 import BadgePage from './components/badge/BadgePage.tsx'
@@ -38,7 +38,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
               <Route path="/quizzs" element={<ErrorBoundary><QuizzPage /></ErrorBoundary>} />
               <Route path="/points" element={<ErrorBoundary><PointPage /></ErrorBoundary>} />
               <Route path="/newsletters" element={<ErrorBoundary><NewsletterPage /></ErrorBoundary>} />
-              <Route path="/questionSecuritys" element={<ErrorBoundary><QuestionSecurityPage /></ErrorBoundary>} />
+              {/* <Route path="/questionSecuritys" element={<ErrorBoundary><QuestionSecurityPage /></ErrorBoundary>} /> */}
               <Route path="/about" element={<AboutPage />} />
               <Route path="/logout" element={<Logout />} />
             </Route>
