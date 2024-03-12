@@ -3,11 +3,13 @@ import Badge from '../../models/Badge';
 import BadgeService from '../../services/BadgeService';
 import BadgeList from './BadgeList';
 import BadgeForm from './BadgeForm';
+import LoadingScreen from '../LoadingScreen/LoadingScreen';
 
 function BadgePage() {
   const [badges, setBadges] = useState<Badge[]>([]);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [selectedBadge, setSelectedBadge] = useState<Badge | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     fetchBadges();
@@ -23,6 +25,8 @@ function BadgePage() {
       }
     } catch (error) {
       console.error("Error loading badges:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -48,6 +52,10 @@ function BadgePage() {
       console.error("Error deleting badge:", error);
     }
   };
+
+  if (loading) {
+    return <LoadingScreen />;
+  }
 
   return (
     <div className="p-4">

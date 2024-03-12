@@ -3,11 +3,14 @@ import NewsletterList from './NewsletterList';
 import NewsletterForm from './NewsletterForm';
 import NewsletterService from '../../services/NewsletterService';
 import Newsletter from '../../models/Newsletter';
+import LoadingScreen from '../LoadingScreen/LoadingScreen';
 
 function NewsletterPage() {
   const [newsletters, setNewsletters] = useState<Newsletter[]>([]);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [selectedNewsletter, setSelectedNewsletter] = useState<Newsletter | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+
 
   useEffect(() => {
     fetchNewsletters();
@@ -24,6 +27,8 @@ function NewsletterPage() {
       }
     } catch (error) {
       console.error("Error loading newsletters:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -49,6 +54,10 @@ function NewsletterPage() {
     setSelectedNewsletter(null);
     setIsModalOpen(false);
   };
+
+  if (loading) {
+    return <LoadingScreen />;
+  }
 
   return (
     <div className='p-4'>

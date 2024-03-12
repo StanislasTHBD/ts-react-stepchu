@@ -3,11 +3,14 @@ import Point from '../../models/Point';
 import PointService from '../../services/PointService';
 import PointList from './PointList';
 import PointForm from './PointForm';
+import LoadingScreen from '../LoadingScreen/LoadingScreen';
 
 function PointPage() {
   const [points, setPoints] = useState<Point[]>([]);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [selectedPoint, setSelectedPoint] = useState<Point | null>(null);
+  const [loading, setLoading] = useState<boolean>(true); 
+
 
   useEffect(() => {
     fetchPoints();
@@ -19,6 +22,8 @@ function PointPage() {
       setPoints(pointsData);
     } catch (error) {
       console.error("Error loading points:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -44,6 +49,10 @@ function PointPage() {
     console.error("Error deleting Point:", error);
     }
 }; 
+
+  if (loading) {
+    return <LoadingScreen />;
+  }
 
   return (
     <div className='p-4'>

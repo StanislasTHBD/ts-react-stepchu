@@ -3,11 +3,13 @@ import Challenge from '../../models/Challenge';
 import ChallengeList from './ChallengeList'
 import ChallengeService from '../../services/ChallengeService';
 import ChallengeForm from './ChallengeForm';
+import LoadingScreen from '../LoadingScreen/LoadingScreen';
 
 function ChallengePage() {
     const [challenges, setChallenges] = useState<Challenge[]>([]);
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     const [selectedChallenge, setSelectedChallenge] = useState<Challenge | null>(null);
+    const [loading, setLoading] = useState<boolean>(true); 
 
     useEffect(() => {
         fetchChallenges();
@@ -23,6 +25,8 @@ function ChallengePage() {
             }
         } catch (error) {
             console.error("Error loading challenges:", error);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -48,6 +52,10 @@ function ChallengePage() {
         console.error("Error deleting challenge:", error);
         }
     }; 
+
+    if (loading) {
+        return <LoadingScreen />;
+    }
 
   return (
     <div className='p-4'>

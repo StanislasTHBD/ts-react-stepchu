@@ -3,11 +3,14 @@ import QuizzService from '../../services/QuizzService';
 import Quizz from '../../models/Quizz';
 import QuizzForm from './QuizzForm';
 import QuizzList from './QuizzList';
+import LoadingScreen from '../LoadingScreen/LoadingScreen';
 
 function QuizzPage() {
   const [quizzes, setQuizzes] = useState<Quizz[]>([]);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [selectedQuizz, setSelectedQuizz] = useState<Quizz | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+
 
   useEffect(() => {
     fetchQuizzes();
@@ -23,6 +26,8 @@ function QuizzPage() {
       }
     } catch (error) {
       console.error("Error loading quizzes:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -48,6 +53,10 @@ function QuizzPage() {
       console.error("Error deleting quizz:", error);
     }
   };
+
+  if (loading) {
+    return <LoadingScreen />;
+  }
 
   return (
     <div className="p-4">
