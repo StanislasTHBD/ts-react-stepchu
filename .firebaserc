@@ -1,5 +1,8 @@
 {
   "projects": {
-    "default": "stepchu-db916"
-  }
+    "default": "stepchu-ee8ee",
+    "@/": "stepchu-ee8ee"
+  },
+  "targets": {},
+  "etags": {}
 }
