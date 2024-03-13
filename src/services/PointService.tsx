@@ -24,6 +24,7 @@ class PointService {
         const pointRef = await addDoc(pointsCollection, point);
 
         console.log("Point created with ID:", pointRef.id);
+        window.alert("Le Point a été crée avec succès!");
         return pointRef.id;
     } catch (error) {
         console.error("Error creating point:", error);
@@ -42,6 +43,7 @@ class PointService {
 
         await updateDoc(pointRef, pointData);
         console.log("Point updated with ID:", point.id);
+        window.alert("Le Point a été modifié avec succès!");
     } catch (error) {
         console.error("Error updating point:", error);
         throw error;
@@ -53,6 +55,7 @@ class PointService {
         const pointRef = doc(firestore, "points", pointId);
         await deleteDoc(pointRef);
         console.log("Point deleted with ID:", pointId);
+        window.alert("Le Point a été supprimé avec succès!");
     } catch (error) {
         console.error("Error deleting point:", error);
         throw error;

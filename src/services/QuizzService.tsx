@@ -27,6 +27,7 @@ class QuizzService {
 
             const quizzRef = await addDoc(collection(firestore, 'quizzes'), quizzData);
             console.log("Quizz document written with ID:", quizzRef.id);
+            window.alert("Le Quizz a été crée avec succès!");
             return quizzRef.id;
         } catch (error) {
             console.error("Error creating quizz:", error);
@@ -46,6 +47,7 @@ class QuizzService {
             const quizzRef = doc(firestore, 'quizzes', quizz.id || '');
             await updateDoc(quizzRef, quizzData);
             console.log("Quizz document updated with ID:", quizz.id);
+            window.alert("Le Quizz a été modifié avec succès!");
         } catch (error) {
             console.error("Error updating quizz:", error);
             throw error;
@@ -57,6 +59,7 @@ class QuizzService {
             const quizzRef = doc(firestore, 'quizzes', id);
             await deleteDoc(quizzRef);
             console.log("Quizz document deleted with ID:", id);
+            window.alert("Le Quizz a été supprimé avec succès!");
         } catch (error) {
             console.error("Error deleting quizz:", error);
             throw error;
