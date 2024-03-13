@@ -93,10 +93,12 @@ const Sidebar: React.FC<SidebarProps> = ({ children }) => {
     return (
         <div className="flex">
             {shouldRenderSidebar && (
-                <div className={`${isOpen ? 'w-48' : 'w-20'} bg-custom-blue text-white h-screen fixed overflow-y-auto`}>
+                <div className={`${isOpen ? 'w-56' : 'w-20'} bg-custom-blue text-white h-screen fixed overflow-y-auto`}>
                     <div className="flex flex-col justify-between h-screen">
                         <div className="bg-custom-blue">
                             <div className="flex items-center p-4 hover:bg-custom-orange">
+                            <img src="/logo_stepchu.svg" alt="Logo" className={`${isOpen ? 'block' : 'hidden'}`} style={{ width: '32px', height: '32px' }} />
+
                                 <h1 className={`${isOpen ? 'block' : 'hidden'} m-2 text-2xl font-bold`}>StepCHU</h1>
                                 <div className="m-2">
                                     <FaBars className="text-2xl cursor-pointer" onClick={toggle} />
@@ -129,7 +131,7 @@ const Sidebar: React.FC<SidebarProps> = ({ children }) => {
                 </div>
             )}
             {shouldRenderSidebar ? (
-                <main className={`${isOpen ? 'ml-48' : 'ml-20'} flex-grow p-4`}>{children}</main>
+                <main className={`${isOpen ? 'ml-56' : 'ml-20'} flex-grow p-4`}>{children}</main>
             ) : (
                 <main>{children}</main>
             )}
