@@ -81,6 +81,7 @@ class UtilisateurService {
         utilisateurData
       );
       console.log("Document written with ID:", utilisateurRef.id);
+      window.alert("L'utilisateur a été crée avec succès!");
       return utilisateurRef.id;
     } catch (error) {
       console.error("Error creating utilisateur:", error);
@@ -113,6 +114,7 @@ class UtilisateurService {
 
       await updateDoc(utilisateurRef, utilisateurData);
       console.log("Document updated with ID:", utilisateur.id);
+      window.alert("L'utilisateur a été modifié avec succès!");
     } catch (error) {
       console.error("Error updating utilisateur:", error);
       throw error;
@@ -129,6 +131,7 @@ class UtilisateurService {
 
       await updateDoc(utilisateurRef, utilisateurData);
       console.log("Utilisateur fields reset for ID:", id);
+      window.alert("Le mot de passe de l'utilisateur a été effacé avec succès!");
     } catch (error) {
       console.error("Error resetting utilisateur fields:", error);
       throw error;
@@ -140,6 +143,7 @@ class UtilisateurService {
       const utilisateurRef = doc(firestore, "utilisateurs", id);
       await deleteDoc(utilisateurRef);
       console.log("Document written with ID:", id);
+      window.alert("L'utilisateur a été supprimé avec succès!");
     } catch (error) {
       console.error("Error deleting utilisateur:", error);
       throw error;
@@ -157,6 +161,7 @@ class UtilisateurService {
       StepService.clearSteps();
       await Promise.all(deletionPromises);
       console.log("All utilisateurs have been deleted.");
+      window.alert("Les utilisateurs et leurs steps ont été effacé avec succès!");
     } catch (error) {
       console.error("Error clearing utilisateurs:", error);
       throw error;

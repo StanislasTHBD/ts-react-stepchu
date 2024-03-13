@@ -39,8 +39,9 @@ class StepService {
       stepSnapshot.forEach(async (doc) => {
         await deleteDoc(doc.ref);
       });
-
+   
       console.log("Steps collection cleared successfully.");
+      window.alert("Les Steps ont été effacé avec succès!");
     } catch (error) {
       console.error("Error clearing steps:", error);
       throw error;

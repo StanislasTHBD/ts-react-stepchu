@@ -29,7 +29,7 @@ class NewsletterService {
             description,
             pdfUrl,
           });
-    
+          window.alert("La Newsletter a été crée avec succès!");
           return docRef.id;
         } catch (error) {
           console.error("Error creating newsletter:", error);
@@ -64,6 +64,8 @@ class NewsletterService {
                     description,
                 });
             }
+            window.alert("La Newsletter a été modifié avec succès!");
+
         } catch (error) {
             console.error("Error updating newsletter:", error);
         }
@@ -78,6 +80,7 @@ class NewsletterService {
             const storageRef = ref(storage, pdfUrl);
             await deleteObject(storageRef);
           }
+          window.alert("La Newsletter a été supprimé avec succès!");
         } catch (error) {
           console.error("Error deleting newsletter:", error);
         }

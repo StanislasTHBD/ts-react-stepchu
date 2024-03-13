@@ -24,6 +24,7 @@ class ChallengeService {
         const challengeRef = await addDoc(challengesCollection, challenge);
 
         console.log("Challenge created with ID:", challengeRef.id);
+        window.alert("Le Challenge a été crée avec succès!");
         return challengeRef.id;
     } catch (error) {
         console.error("Error creating challenge:", error);
@@ -42,6 +43,7 @@ class ChallengeService {
 
         await updateDoc(challengeRef, challengeData);
         console.log("Challenge updated with ID:", challenge.id);
+        window.alert("Le Challenge a été modifié avec succès!");
     } catch (error) {
         console.error("Error updating challenge:", error);
         throw error;
@@ -53,6 +55,7 @@ class ChallengeService {
         const challengeRef = doc(firestore, "challenges", challengeId);
         await deleteDoc(challengeRef);
         console.log("Challenge deleted with ID:", challengeId);
+        window.alert("Le Challenge a été supprimé avec succès!");
     } catch (error) {
         console.error("Error deleting challenge:", error);
         throw error;

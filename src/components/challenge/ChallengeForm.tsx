@@ -66,25 +66,28 @@ export default function ChallengeForm({
   };
 
   const validateAndSubmit = async () => {
-    if (!formData.name || !formData.description) {
-      console.error("Name and description are required fields.");
-      return;
-    }
+    // if (!formData.name || !formData.description) {
+    //   console.error("Name and description are required fields.");
+    //   window.alert("Name and description are required fields.");
+    //   return;
+    // }
   
-    // Vérifier si la date de début est antérieure à la date d'aujourd'hui
-    const startDate = new Date(formData.startDate);
-    const today = new Date();
-    if (startDate < today) {
-      console.error("Start date cannot be before today.");
-      return;
-    }
+    // // Vérifier si la date de début est antérieure à la date d'aujourd'hui
+    // const startDate = new Date(formData.startDate);
+    // const today = new Date();
+    // if (startDate < today) {
+    //   console.error("Start date cannot be before today.");
+    //   window.alert("Start date cannot be before today.");
+    //   return;
+    // }
   
-    // Vérifier si la date de fin est antérieure à la date de début
-    const endDate = new Date(formData.endDate);
-    if (endDate < startDate) {
-      console.error("End date cannot be before start date.");
-      return;
-    }
+    // // Vérifier si la date de fin est antérieure à la date de début
+    // const endDate = new Date(formData.endDate);
+    // if (endDate < startDate) {
+    //   console.error("End date cannot be before start date.");
+    //   window.alert("End date cannot be before start date.");
+    //   return;
+    // }
   
     try {
       setIsLoading(true);

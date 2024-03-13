@@ -30,6 +30,7 @@ class BadgeService {
         };
         const badgeRef = await addDoc(collection(firestore, 'badges'), badgeData);
         console.log("Document written with ID:", badgeRef.id);
+        window.alert("Le Badge a été crée avec succès!");
         return badgeRef.id;
       } catch (error) {
         console.error("Error creating badge:", error);
@@ -52,6 +53,7 @@ class BadgeService {
         const badgeRef = doc(firestore, 'badges', badge.id || '');
         await updateDoc(badgeRef, badgeData);
         console.log("Document updated with ID:", badge.id);
+        window.alert("Le Badge a été modifié avec succès!");
       } catch (error) {
         console.error("Error updating badge:", error);
         throw error;
@@ -63,6 +65,7 @@ class BadgeService {
             const badgeRef = doc(firestore, 'badges', id);
             await deleteDoc(badgeRef);
             console.log("Document written with ID:", id);
+            window.alert("Le Badge a été supprimé avec succès!");
         } catch (error) {
             console.error("Error deleting badge:", error);
             throw error;
