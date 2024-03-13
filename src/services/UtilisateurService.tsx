@@ -44,7 +44,8 @@ class UtilisateurService {
         const utilisateur: Utilisateur = {
           id: utilisateurDoc.id,
           name: userData.name,
-          securityAnswer: userData.securityAnswer || undefined,
+          // securityAnswer: userData.securityAnswer || undefined,
+          password: userData.password || undefined,
           phoneId: userData.phoneId || undefined
         };
         return utilisateur;
@@ -68,8 +69,12 @@ class UtilisateurService {
       //   utilisateurData.securityQuestion = utilisateur.securityQuestion;
       // }
 
-      if (utilisateur.securityAnswer !== undefined) {
-        utilisateurData.securityAnswer = utilisateur.securityAnswer;
+      // if (utilisateur.securityAnswer !== undefined) {
+      //   utilisateurData.securityAnswer = utilisateur.securityAnswer;
+      // }
+
+      if (utilisateur.password !== undefined) {
+        utilisateurData.password = utilisateur.password;
       }
 
       if (utilisateur.phoneId !== undefined) {
@@ -104,8 +109,12 @@ class UtilisateurService {
       //   utilisateurData.securityQuestion = utilisateur.securityQuestion;
       // }
 
-      if (utilisateur.securityAnswer !== undefined) {
-        utilisateurData.securityAnswer = utilisateur.securityAnswer;
+      // if (utilisateur.securityAnswer !== undefined) {
+      //   utilisateurData.securityAnswer = utilisateur.securityAnswer;
+      // }
+
+      if (utilisateur.password !== undefined) {
+        utilisateurData.password = utilisateur.password;
       }
 
       if (utilisateur.phoneId !== undefined) {
@@ -126,7 +135,8 @@ class UtilisateurService {
       const utilisateurRef = doc(firestore, "utilisateurs", id);
       const utilisateurData = {
         // securityQuestion: "",
-        securityAnswer: "",
+        // securityAnswer: "",
+        password: "",
       };
 
       await updateDoc(utilisateurRef, utilisateurData);
