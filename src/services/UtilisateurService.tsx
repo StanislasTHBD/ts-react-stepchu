@@ -94,6 +94,40 @@ class UtilisateurService {
     }
   }
 
+  async importUtilisateur(utilisateur: Utilisateur) {
+    try {
+      const utilisateurData: any = {
+        name: String(utilisateur.name),
+      };
+
+      // if (utilisateur.securityQuestion !== undefined) {
+      //   utilisateurData.securityQuestion = utilisateur.securityQuestion;
+      // }
+
+      // if (utilisateur.securityAnswer !== undefined) {
+      //   utilisateurData.securityAnswer = utilisateur.securityAnswer;
+      // }
+
+      if (utilisateur.password !== undefined) {
+        utilisateurData.password = utilisateur.password;
+      }
+
+      if (utilisateur.phoneId !== undefined) {
+        utilisateurData.phoneId = utilisateur.phoneId;
+      }
+
+      const utilisateurRef = await addDoc(
+        collection(firestore, "utilisateurs"),
+        utilisateurData
+      );
+      console.log("Document written with ID:", utilisateurRef.id);
+      return utilisateurRef.id;
+    } catch (error) {
+      console.error("Error creating utilisateur:", error);
+      throw error;
+    }
+  }
+
   async updateUtilisateur(utilisateur: Utilisateur) {
     try {
       const utilisateurRef = doc(

@@ -58,7 +58,7 @@ function PointPage() {
     <div className='p-4'>
       <h1 className="text-2xl font-bold mb-4 text-custom-secondary">Liste des Points</h1>
       <button
-        className="bg-blue-500 text-custom-secondary px-4 py-2 rounded hover:bg-blue-700"
+        className="bg-custom-blue text-custom-secondary px-4 py-2 rounded hover:bg-blue-700"
         onClick={() => openModal(null)}
       >
         Créer Point

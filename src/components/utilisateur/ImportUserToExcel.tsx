@@ -17,8 +17,9 @@ function ImportUserToExcel() {
         const users = await importUsersFromXlsx(file);
         console.log("Utilisateurs importés depuis le fichier XLSX :", users);
         users.forEach((user) => {
-          UtilisateurService.createUtilisateur({ name: user, phoneId: "" });
+          UtilisateurService.importUtilisateur({ name: user, phoneId: "" });
         });
+        window.alert("Les utilisateurs ont été enregistré avec succès!");
       } catch (error) {
         console.error(
           "Erreur lors de l'importation des utilisateurs depuis le fichier XLSX :",
