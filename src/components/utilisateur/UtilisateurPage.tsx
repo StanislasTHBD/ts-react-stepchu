@@ -97,7 +97,7 @@ function UtilisateurPage() {
           Supprimer les Utilisateurs
         </button>
         <button
-          className="bg-blue-500 text-white px-3 py-2 rounded hover:bg-blue-700 m-2"
+          className="bg-custom-blue text-white px-3 py-2 rounded hover:bg-blue-700 m-2"
           onClick={() => openModal(null)}
         >
           Créer Utilisateur
