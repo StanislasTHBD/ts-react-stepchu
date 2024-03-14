@@ -7,6 +7,7 @@ import TotalChallengesCard from './TotalChallengesCard';
 import TotalPointsCard from './TotalPointsCard';
 import TotalStepsCard from './TotalStepsCard';
 import LoadingScreen from '../LoadingScreen/LoadingScreen';
+import TotalEventsCard from './TotalEventsCard';
 
 const DashboardPage: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
@@ -25,11 +26,7 @@ const DashboardPage: React.FC = () => {
       <TotalUsersCard />
       <TotalNewslettersCard />
       <TotalChallengesCard />
-      <div className="w-full md:w-1/2 lg:w-1/3 p-4">
-        <div className="bg-custom-blue text-custom-secondary rounded-lg shadow-md p-6">
-          Evenements
-        </div>
-      </div>
+      <TotalEventsCard />
       <TotalQuizzesCard />
       <TotalBadgesCard />
       <TotalPointsCard />
