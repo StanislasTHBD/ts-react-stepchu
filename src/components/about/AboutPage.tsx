@@ -20,15 +20,15 @@ function AboutPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="bg-custom-blue bg-opacity-70 p-4 rounded-lg shadow-md">
               <h3 className="text-lg font-semibold mb-2">Concepteur Développeur d'Application</h3>
-              <p>Nom du Développeur 1</p>
-              <p>Nom du Développeur 2</p>
-              <p>Nom du Développeur 3</p>
-              <p>Nom du Développeur 4</p>
+              <p>Stanislas Thiebaud</p>
+              <p>Hanane Mouder</p>
+              <p>Théo Maës</p>
+              <p>Alexandre Monin</p>
             </div>
             <div className="bg-custom-blue bg-opacity-70 p-4 rounded-lg shadow-md">
               <h3 className="text-lg font-semibold mb-2">Chef de Projet Digital</h3>
-              <p>Nom du Chef de Projet Digital 1</p>
-              <p>Nom du Chef de Projet Digital 2</p>
+              <p>Mathys Lesueur</p>
+              <p>Marwane Anik</p>
             </div>
           </div>
           <h2 className="text-2xl font-semibold mb-4 mt-6">Contactez-Nous</h2>
