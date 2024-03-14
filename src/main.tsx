@@ -19,6 +19,7 @@ import BadgePage from './components/badge/BadgePage.tsx'
 import PointPage from './components/point/PointPage.tsx'
 import DashboardPage from './components/dashboard/DashboardPage.tsx'
 import StepPage from './components/step/StepPage.tsx'
+import EventPage from './components/event/EventPage.tsx'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -34,7 +35,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
               <Route path="/utilisateurs" element={<ErrorBoundary><UtilisateurPage /></ErrorBoundary>} />
               <Route path="/badges" element={<ErrorBoundary><BadgePage /></ErrorBoundary>} />
               <Route path="/challenges" element={<ErrorBoundary><ChallengePage /></ErrorBoundary>} />
-              <Route path="/evenements" element="#" />
+              <Route path="/evenements" element={<ErrorBoundary><EventPage /></ErrorBoundary>} />
               <Route path="/quizzs" element={<ErrorBoundary><QuizzPage /></ErrorBoundary>} />
               <Route path="/points" element={<ErrorBoundary><PointPage /></ErrorBoundary>} />
               <Route path="/newsletters" element={<ErrorBoundary><NewsletterPage /></ErrorBoundary>} />
